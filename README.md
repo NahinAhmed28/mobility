@@ -1,3 +1,58 @@
+# Mobility Unlimited — Portfolio + Admin CMS
+
+This repository is a Laravel 11 application (PHP 8.2+) with a public portfolio and a simple admin CMS to manage content.
+
+Quick setup
+
+- Copy `.env.example` to `.env` and set your database credentials.
+- Install composer dependencies:
+
+```bash
+composer install
+```
+
+- Generate app key:
+
+```bash
+php artisan key:generate
+```
+
+- Run migrations and seeders:
+
+```bash
+php artisan migrate
+php artisan db:seed
+```
+
+- Create storage symlink for uploads:
+
+```bash
+php artisan storage:link
+```
+
+- Default admin login (seeded):
+  - Email: `admin@mobility.local`
+  - Password: `password`
+
+Notes
+
+- Authentication scaffolding is expected to be provided by Laravel Breeze. If not installed, run `composer require laravel/breeze --dev` and follow Breeze installation.
+- Roles use `spatie/laravel-permission` — ensure the package is installed and configured.
+- Public pages render from the database. Use the Admin panel (`/admin`) to edit Company profile and contact settings.
+
+What I added
+
+- Migrations for company profile, contact settings, services, projects, images and contact messages.
+- Models and relationships.
+- Seeders to populate initial data from the brochure (company, services and projects).
+- Public controllers and Blade templates for Home, Services, Projects, About and Contact.
+- Admin dashboard and edit screens for Company Profile and Contact Settings (under `/admin`).
+
+Next steps / enhancements
+
+- Add full CRUD for service categories / items and project management in the admin panel.
+- Add image gallery management and media library.
+- Add policies for fine-grained access control and make admin UI prettier.
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
