@@ -38,6 +38,7 @@ class ProjectController extends Controller
 
         $data['slug'] = Str::slug($data['title']);
         $project = Project::create($data);
+        \Illuminate\Support\Facades\Cache::forget('public_project_categories');
 
         return redirect()->route('admin.projects.edit', $project)->with('success', 'Project created. You can now add images.');
     }
@@ -63,6 +64,7 @@ class ProjectController extends Controller
 
         $data['slug'] = Str::slug($data['title']);
         $project->update($data);
+        \Illuminate\Support\Facades\Cache::forget('public_project_categories');
 
         return redirect()->route('admin.projects.index')->with('success', 'Project updated successfully');
     }
@@ -70,6 +72,8 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $project->delete();
+        \Illuminate\Support\Facades\Cache::forget('public_project_categories');
+
         return redirect()->route('admin.projects.index')->with('success', 'Project deleted successfully');
     }
 
@@ -84,6 +88,7 @@ class ProjectController extends Controller
             $project->images()->create([
                 'image_path' => Storage::url($path),
             ]);
+            \Illuminate\Support\Facades\Cache::forget('public_project_categories');
         }
 
         return redirect()->back()->with('success', 'Image uploaded successfully');
@@ -92,6 +97,8 @@ class ProjectController extends Controller
     public function destroyImage(ProjectImage $image)
     {
         $image->delete();
+        \Illuminate\Support\Facades\Cache::forget('public_project_categories');
+
         return redirect()->back()->with('success', 'Image removed successfully');
     }
 }

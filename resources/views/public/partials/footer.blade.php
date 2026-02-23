@@ -24,15 +24,15 @@
         <div class="d-grid gap-3 small text-white-50">
           <div class="d-flex align-items-start gap-2">
             <i class="bi bi-geo-alt text-brand-secondary"></i>
-            <span>{{ $company->address ?? 'Dhaka, Bangladesh' }}</span>
+            <span>{{ $contact->address ?? 'Dhaka, Bangladesh' }}</span>
           </div>
           <div class="d-flex align-items-center gap-2">
             <i class="bi bi-telephone text-brand-secondary"></i>
-            <span>{{ $company->phone ?? '' }}</span>
+            <span>{{ $contact->phone ?? '' }}</span>
           </div>
           <div class="d-flex align-items-center gap-2">
             <i class="bi bi-envelope text-brand-secondary"></i>
-            <span>{{ $company->email ?? '' }}</span>
+            <span>{{ $contact->email ?? '' }}</span>
           </div>
         </div>
       </div>

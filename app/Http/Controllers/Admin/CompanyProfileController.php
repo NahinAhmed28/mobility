@@ -41,6 +41,8 @@ class CompanyProfileController extends Controller
         $profile->fill($data);
         $profile->save();
 
+        \Illuminate\Support\Facades\Cache::forget('company_profile');
+
         return redirect()->route('admin.company.edit')->with('success','Company profile updated successfully');
     }
 }

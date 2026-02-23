@@ -35,6 +35,8 @@ class ContactSettingsController extends Controller
         $contact->fill($data);
         $contact->save();
 
+        \Illuminate\Support\Facades\Cache::forget('contact_settings');
+
         return redirect()->route('admin.contact.edit')->with('success','Contact settings updated successfully');
     }
 }

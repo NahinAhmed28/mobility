@@ -31,6 +31,7 @@ class ServiceController extends Controller
 
         $data['slug'] = Str::slug($data['name']);
         ServiceCategory::create($data);
+        \Illuminate\Support\Facades\Cache::forget('public_service_categories');
 
         return redirect()->route('admin.services.index')->with('success', 'Service category created successfully');
     }
@@ -50,6 +51,7 @@ class ServiceController extends Controller
 
         $data['slug'] = Str::slug($data['name']);
         $category->update($data);
+        \Illuminate\Support\Facades\Cache::forget('public_service_categories');
 
         return redirect()->route('admin.services.index')->with('success', 'Service category updated successfully');
     }
@@ -57,6 +59,8 @@ class ServiceController extends Controller
     public function destroy(ServiceCategory $category)
     {
         $category->delete();
+        \Illuminate\Support\Facades\Cache::forget('public_service_categories');
+
         return redirect()->route('admin.services.index')->with('success', 'Service category deleted successfully');
     }
 
@@ -68,6 +72,7 @@ class ServiceController extends Controller
         ]);
 
         $category->items()->create($data);
+        \Illuminate\Support\Facades\Cache::forget('public_service_categories');
 
         return redirect()->back()->with('success', 'Service item added successfully');
     }
@@ -75,6 +80,8 @@ class ServiceController extends Controller
     public function destroyItem(ServiceItem $item)
     {
         $item->delete();
+        \Illuminate\Support\Facades\Cache::forget('public_service_categories');
+
         return redirect()->back()->with('success', 'Service item removed successfully');
     }
 }
