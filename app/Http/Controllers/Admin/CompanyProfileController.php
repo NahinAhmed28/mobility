@@ -41,6 +41,6 @@ class CompanyProfileController extends Controller
         $profile->fill($data);
         $profile->save();
 
-        return redirect()->route('admin.dashboard')->with('success','Company profile updated');
+        return redirect()->route('admin.company.edit')->with('success','Company profile updated successfully');
     }
 }

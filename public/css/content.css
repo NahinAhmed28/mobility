@@ -1,0 +1,29 @@
+/* Content typography and spacing */
+.content-area {
+    padding: 60px 0;
+}
+
+.content-area h1,
+.content-area h2,
+.content-area h3 {
+    color: var(--primary-color);
+    margin-bottom: 25px;
+}
+
+.content-area p {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.content-area ul {
+    margin-bottom: 25px;
+}
+
+.content-area li {
+    margin-bottom: 10px;
+}
+
+.breadcrumb-area {
+    background: #f1f3f5;
+    padding: 20px 0;
+}

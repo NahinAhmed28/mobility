@@ -35,6 +35,6 @@ class ContactSettingsController extends Controller
         $contact->fill($data);
         $contact->save();
 
-        return redirect()->route('admin.dashboard')->with('success','Contact settings updated');
+        return redirect()->route('admin.contact.edit')->with('success','Contact settings updated successfully');
     }
 }

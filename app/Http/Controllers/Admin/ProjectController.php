@@ -1,0 +1,97 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Project;
+use App\Models\ProjectCategory;
+use App\Models\ProjectImage;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+
+class ProjectController extends Controller
+{
+    public function index()
+    {
+        $projects = Project::with('category')->orderBy('created_at', 'desc')->get();
+        return view('admin.projects.index', compact('projects'));
+    }
+
+    public function create()
+    {
+        $categories = ProjectCategory::all();
+        return view('admin.projects.create', compact('categories'));
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'project_category_id' => 'required|exists:project_categories,id',
+            'title' => 'required|string|max:255',
+            'location' => 'nullable|string',
+            'client' => 'nullable|string',
+            'year' => 'nullable|string',
+            'description' => 'nullable|string',
+            'is_featured' => 'boolean',
+        ]);
+
+        $data['slug'] = Str::slug($data['title']);
+        $project = Project::create($data);
+
+        return redirect()->route('admin.projects.edit', $project)->with('success', 'Project created. You can now add images.');
+    }
+
+    public function edit(Project $project)
+    {
+        $categories = ProjectCategory::all();
+        $project->load('images');
+        return view('admin.projects.edit', compact('project', 'categories'));
+    }
+
+    public function update(Request $request, Project $project)
+    {
+        $data = $request->validate([
+            'project_category_id' => 'required|exists:project_categories,id',
+            'title' => 'required|string|max:255',
+            'location' => 'nullable|string',
+            'client' => 'nullable|string',
+            'year' => 'nullable|string',
+            'description' => 'nullable|string',
+            'is_featured' => 'boolean',
+        ]);
+
+        $data['slug'] = Str::slug($data['title']);
+        $project->update($data);
+
+        return redirect()->route('admin.projects.index')->with('success', 'Project updated successfully');
+    }
+
+    public function destroy(Project $project)
+    {
+        $project->delete();
+        return redirect()->route('admin.projects.index')->with('success', 'Project deleted successfully');
+    }
+
+    public function uploadImage(Request $request, Project $project)
+    {
+        $request->validate([
+            'image' => 'required|image|max:4096',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('public/projects');
+            $project->images()->create([
+                'image_path' => Storage::url($path),
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Image uploaded successfully');
+    }
+
+    public function destroyImage(ProjectImage $image)
+    {
+        $image->delete();
+        return redirect()->back()->with('success', 'Image removed successfully');
+    }
+}

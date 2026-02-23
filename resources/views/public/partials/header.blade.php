@@ -1,31 +1,32 @@
-<nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(to right, #1e2d5a 0%, #2d4a7e 100%);">
+<nav class="navbar navbar-expand-lg navbar-dark bg-brand-primary py-3 shadow-sm sticky-top">
   <div class="container">
-    <a class="navbar-brand d-flex align-items-center fw-bold" href="{{ route('home') }}">
-      @if(!empty($company->logo_path))
-        <img src="{{ $company->logo_path }}" alt="{{ $company->name }}" style="height:36px; object-fit:contain; margin-right:10px">
+    <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
+      @php $logo = $company->logo_path ?? null; @endphp
+      @if($logo)
+        <img src="{{ asset($logo) }}" alt="Logo" height="45" class="d-inline-block align-text-top me-2">
       @else
-        <i class="bi bi-graph-up me-2" style="font-size: 1.5rem;"></i>
+        <div class="logo-m">M</div>
+        <span class="fw-bold fs-4 tracking-tight">MOBILITY <span class="text-brand-secondary">UNLIMITED</span></span>
       @endif
-      <span>{{ $company->name ?? 'Mobility Unlimited' }}</span>
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Toggle navigation">
+    
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="mainNav">
-      <ul class="navbar-nav ms-auto">
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto gap-lg-3 mt-3 mt-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('services') }}"><i class="bi bi-briefcase me-1"></i>Services</a>
+          <a class="nav-link fw-semibold text-uppercase small" href="{{ route('services') }}">Services</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('projects') }}"><i class="bi bi-diagram-3 me-1"></i>Projects</a>
+          <a class="nav-link fw-semibold text-uppercase small" href="{{ route('projects') }}">Projects</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('about') }}"><i class="bi bi-info-circle me-1"></i>About</a>
+          <a class="nav-link fw-semibold text-uppercase small" href="{{ route('about') }}">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link btn btn-primary ms-2 text-white" href="{{ route('contact') }}">
-            <i class="bi bi-envelope me-1"></i>Contact
-          </a>
+          <a class="nav-link fw-semibold text-uppercase small" href="{{ route('contact') }}">Contact</a>
         </li>
       </ul>
     </div>

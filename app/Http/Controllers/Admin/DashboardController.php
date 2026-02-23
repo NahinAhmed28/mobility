@@ -12,6 +12,9 @@ class DashboardController extends Controller
     {
         $company = CompanyProfile::first();
         $contact = ContactSetting::first();
-        return view('admin.dashboard', compact('company','contact'));
+        $serviceCount = \App\Models\ServiceItem::count();
+        $projectCount = \App\Models\Project::count();
+        
+        return view('admin.dashboard', compact('company','contact', 'serviceCount', 'projectCount'));
     }
 }

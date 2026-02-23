@@ -1,86 +1,102 @@
 @extends('public.layouts.app')
 
 @section('content')
-  <!-- Hero Section -->
-  <div class="hero-section" style="background: linear-gradient(135deg, #1e2d5a 0%, #2d4a7e 100%);">
-    <div class="container py-5">
-      <div class="row align-items-center">
-        <div class="col-lg-8 mx-auto text-white text-center">
-          <h1 class="display-3 fw-bold mb-3">{{ $company->name }}</h1>
-          <p class="lead mb-4 text-light">{{ $company->tagline }}</p>
-          <div class="d-flex gap-3 justify-content-center flex-wrap">
-            <a class="btn btn-primary btn-lg" href="{{ route('services') }}"><i class="bi bi-briefcase me-2"></i>Our Services</a>
-            <a class="btn btn-outline-light btn-lg" href="{{ route('projects') }}"><i class="bi bi-diagram-3 me-2"></i>View Projects</a>
+  <!-- Hero Section - Matching Reference Aesthetics -->
+  <div class="hero-section">
+    <div class="container py-lg-5">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7 text-start">
+          <h1 class="hero-title mb-4">
+              MOBILITY <br>
+              <span class="text-brand-secondary">UNLIMITED</span>
+          </h1>
+          <p class="lead mb-5 text-white-50">{{ $company->tagline }}</p>
+          <div class="d-flex gap-3 flex-wrap">
+            <a class="btn btn-secondary btn-lg px-5 py-3 fw-bold rounded-pill shadow" href="{{ route('services') }}">OUR SERVICES</a>
+            <a class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill" href="{{ route('projects') }}">VIEW PROJECTS</a>
           </div>
+        </div>
+        <div class="col-lg-5 d-none d-lg-flex justify-content-center">
+            <div class="hero-graphic-circle d-flex align-items-center justify-content-center">
+                <div class="hero-brand-logo shadow-lg">M</div>
+            </div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Services Section -->
-  <section class="services-section py-5 bg-light">
-    <div class="container">
-      <h2 class="text-center section-title mb-5">Our Services</h2>
+  <section class="py-5 bg-light">
+    <div class="container py-lg-4">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold text-brand-primary text-uppercase mb-2">Our Services</h2>
+        <div class="section-divider"></div>
+      </div>
       <div class="row g-4">
-        @forelse($services as $cat)
+        @forelse($featuredServices as $item)
           <div class="col-lg-4 col-md-6">
-            <div class="service-card card h-100 border-0 shadow-sm">
-              <div class="card-body p-4">
-                <div class="service-icon mb-3">
-                  <i class="bi bi-gear-fill"></i>
+            <div class="card h-100 border-0 shadow-sm hover-shadow p-3">
+              <div class="card-body">
+                <div class="mb-4 text-brand-secondary">
+                  <i class="bi bi-shield-check display-5"></i>
                 </div>
-                <h5 class="card-title">{{ $cat->name }}</h5>
-                <ul class="service-list list-unstyled">
-                  @forelse($cat->items->take(3) as $item)
-                    <li><i class="bi bi-check-circle-fill text-accent"></i> <span>{{ $item->title }}</span></li>
-                  @empty
-                    <li>No services available</li>
-                  @endforelse
-                </ul>
+                <h5 class="fw-bold text-brand-primary mb-3">{{ $item->title }}</h5>
+                <p class="text-muted small mb-4">Professional transportation planning and engineering services tailored to your needs.</p>
+                <div class="d-flex align-items-center text-brand-secondary">
+                    <span class="small fw-bold">LEARN MORE</span>
+                    <i class="bi bi-arrow-right ms-2"></i>
+                </div>
               </div>
             </div>
           </div>
         @empty
-          <div class="col-12 text-center text-muted">
+          <div class="col-12 text-center text-muted py-5">
             <p>Services information coming soon.</p>
           </div>
         @endforelse
+      </div>
+      <div class="text-center mt-5">
+          <a href="{{ route('services') }}" class="btn btn-outline-primary px-5 rounded-pill fw-bold">SEE ALL SERVICES</a>
       </div>
     </div>
   </section>
 
   <!-- Projects Section -->
-  <section class="projects-section py-5">
-    <div class="container">
-      <h2 class="text-center section-title mb-5">Project Experience</h2>
+  <section class="py-5">
+    <div class="container py-lg-4">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold text-brand-primary text-uppercase mb-2">Project Experience</h2>
+        <div class="section-divider"></div>
+      </div>
       <div class="row g-4">
-        @forelse($projects as $cat)
-          @forelse($cat->projects->take(3) as $project)
+          @forelse($featuredProjects as $project)
             <div class="col-lg-4 col-md-6">
-              <div class="project-card card h-100 border-0 shadow-sm overflow-hidden">
-                <div class="project-placeholder">
-                  <div class="d-flex align-items-center justify-content-center h-100 bg-gradient">
-                    <i class="bi bi-graph-up-arrow text-white" style="font-size: 3rem;"></i>
-                  </div>
+              <div class="card h-100 border-0 shadow-sm overflow-hidden bg-brand-primary text-white hover-shadow">
+                <div class="bg-secondary bg-opacity-10 py-5 text-center">
+                    <i class="bi bi-geometry text-white opacity-25" style="font-size: 4rem;"></i>
                 </div>
-                <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">{{ $project->title }}</h5>
+                <div class="card-body p-4">
+                  <div class="small text-brand-secondary mb-2 fw-bold">{{ $project->category->name ?? 'PROJECT' }}</div>
+                  <h5 class="fw-bold mb-3">{{ $project->title }}</h5>
                   @if($project->location)
-                    <p class="text-muted small"><i class="bi bi-geo-alt"></i> {{ $project->location }}</p>
+                    <div class="small text-white-50 mb-3">
+                        <i class="bi bi-geo-alt me-2"></i>{{ $project->location }}
+                    </div>
                   @endif
-                  <p class="card-text text-muted flex-grow-1">Feasibility study, design and planning services for transportation infrastructure.</p>
-                  <a href="{{ route('projects.show', $project) }}" class="btn btn-primary btn-sm mt-auto">
-                    <i class="bi bi-arrow-right me-2"></i>View Details
+                  <a href="{{ route('projects.show', $project) }}" class="btn btn-link text-brand-secondary p-0 fw-bold text-decoration-none">
+                    DETAILS <i class="bi bi-arrow-right ms-1"></i>
                   </a>
                 </div>
               </div>
             </div>
-          @endforeach
-        @empty
-          <div class="col-12 text-center text-muted">
-            <p>Projects coming soon.</p>
-          </div>
-        @endforelse
+          @empty
+            <div class="col-12 text-center text-muted py-5">
+              <p>Projects coming soon.</p>
+            </div>
+          @endforelse
+      </div>
+      <div class="text-center mt-5">
+          <a href="{{ route('projects') }}" class="btn btn-outline-primary px-5 rounded-pill fw-bold">EXPLORE PROJECTS</a>
       </div>
     </div>
   </section>

@@ -68,6 +68,7 @@ class ProjectsSeeder extends Seeder
                     'year' => null,
                     'description' => null,
                     'sort_order' => $i,
+                    'is_featured' => ($i < 2), // Mark some as featured
                 ]);
             }
         }

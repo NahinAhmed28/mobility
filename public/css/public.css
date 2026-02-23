@@ -1,0 +1,133 @@
+:root {
+    --primary-color: #1a2d5a;
+    /* Refined Deep Blue */
+    --secondary-color: #f9b000;
+    /* Brand Yellow */
+    --accent-blue: #2d4a7e;
+    --text-dark: #212529;
+    --bg-light: #f8f9fa;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--text-dark);
+}
+
+/* Bootstrap Button Overrides */
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.btn-outline-primary {
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color) !important;
+    border-color: var(--secondary-color) !important;
+    color: var(--primary-color) !important;
+}
+
+.btn-outline-secondary {
+    color: var(--secondary-color) !important;
+    border-color: var(--secondary-color) !important;
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--secondary-color) !important;
+    color: var(--primary-color) !important;
+}
+
+/* Brand Backgrounds & Text */
+.bg-brand-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.text-brand-primary {
+    color: var(--primary-color) !important;
+}
+
+.bg-brand-secondary {
+    background-color: var(--secondary-color) !important;
+}
+
+.text-brand-secondary {
+    color: var(--secondary-color) !important;
+}
+
+/* Navigation */
+.navbar-brand .logo-m {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-weight: 900;
+    font-size: 1.5rem;
+    margin-right: 12px;
+}
+
+/* Hero Section - Matching Reference */
+.hero-section {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-blue) 100%);
+    padding: 120px 0;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-title {
+    font-weight: 800;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+.hero-graphic-circle {
+    width: 320px;
+    height: 320px;
+    border: 15px solid rgba(249, 176, 0, 0.15);
+    border-radius: 50%;
+    position: relative;
+}
+
+.hero-brand-logo {
+    width: 200px;
+    height: 200px;
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    color: var(--primary-color);
+    font-size: 5rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Card Styling */
+.hover-shadow {
+    transition: all 0.3s ease;
+}
+
+.hover-shadow:hover {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1) !important;
+    transform: translateY(-5px);
+}
+
+.section-divider {
+    width: 80px;
+    height: 4px;
+    background-color: var(--secondary-color);
+    margin: 1.5rem auto;
+}

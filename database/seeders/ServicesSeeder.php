@@ -23,8 +23,8 @@ class ServicesSeeder extends Seeder
             }
         }
 
-        // Simple flat Services category
-        $cat = ServiceCategory::create(['name' => 'Core Services', 'slug' => 'core-services', 'sort_order' => 1]);
+        // Simple flat Services category for Home Page / Quick View
+        $cat = ServiceCategory::create(['name' => 'Our Services', 'slug' => 'our-services', 'sort_order' => 1]);
 
         $items = [
             'Feasibility Studies and Financial Appraisal',
@@ -44,11 +44,11 @@ class ServicesSeeder extends Seeder
                 'title' => $title,
                 'details_text' => null,
                 'sort_order' => $i,
-                'is_featured' => ($i < 4),
+                'is_featured' => true,
             ]);
         }
 
-        // Detailed groups as categories
+        // Detailed groups as categories (from inside page)
         $groups = [
             'Feasibility Studies & Financial Analysis' => [
                 'Feasibility studies, economic analysis using HDM4, TUBA, Excel',
@@ -65,7 +65,8 @@ class ServicesSeeder extends Seeder
             ],
             'Road Safety, Parking & Traffic Management' => [
                 'Road safety audits, accident analysis, and safety planning',
-                'Parking policy and traffic management strategies'
+                'Parking policy and traffic management strategies',
+                'Business Case Development & Policy Advisory'
             ],
             'Highway, Road, Railway & Pavement Design' => [
                 'Road alignment, cross-section and pavement design',
