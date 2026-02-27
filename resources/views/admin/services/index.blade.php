@@ -18,10 +18,10 @@
                     <a href="{{ route('admin.services.edit', $cat) }}" class="btn btn-sm btn-outline-secondary">
                         <i class="bi bi-pencil"></i> Edit
                     </a>
-                    <form action="{{ route('admin.services.destroy', $cat) }}" method="POST" onsubmit="return confirm('Delete this category and all its items?')">
+                    <form action="{{ route('admin.services.destroy', $cat) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-outline-danger ms-1">
+                        <button type="button" class="btn btn-sm btn-outline-danger ms-1 delete-confirm">
                             <i class="bi bi-trash"></i>
                         </button>
                     </form>
@@ -40,10 +40,10 @@
                         <tr>
                             <td class="ps-4">{{ $item->title }}</td>
                             <td>
-                                <form action="{{ route('admin.services.items.destroy', $item) }}" method="POST" onsubmit="return confirm('Remove this service item?')">
+                                <form action="{{ route('admin.services.items.destroy', $item) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm text-danger">
+                                    <button type="button" class="btn btn-sm text-danger delete-confirm">
                                         <i class="bi bi-x-circle"></i> Remove
                                     </button>
                                 </form>

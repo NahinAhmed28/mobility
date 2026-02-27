@@ -42,19 +42,88 @@
         </nav>
 
         <div class="container-fluid">
-          @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-              {{ session('success') }}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-          @endif
-
           @yield('content')
         </div>
       </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      // SweetAlert2 notification handler
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      });
+
+      @if(session('success'))
+        Toast.fire({
+          icon: 'success',
+          title: {!! json_encode(session('success')) !!}
+        });
+      @endif
+
+      @if(session('error'))
+        Toast.fire({
+          icon: 'error',
+          title: {!! json_encode(session('error')) !!}
+        });
+      @endif
+
+      @if(session('info'))
+        Toast.fire({
+          icon: 'info',
+          title: {!! json_encode(session('info')) !!}
+        });
+      @endif
+
+      @if(session('warning'))
+        Toast.fire({
+          icon: 'warning',
+          title: {!! json_encode(session('warning')) !!}
+        });
+      @endif
+
+      @if($errors->any())
+        Swal.fire({
+          icon: 'error',
+          title: 'Validation Error',
+          html: '<ul class="text-start">' + 
+                @foreach($errors->all() as $error)
+                '<li>{{ $error }}</li>' +
+                @endforeach
+                '</ul>'
+        });
+      @endif
+
+      // Confirmation for delete actions
+      document.addEventListener('click', function(e) {
+        if (e.target && (e.target.classList.contains('delete-confirm') || e.target.closest('.delete-confirm'))) {
+          e.preventDefault();
+          const form = e.target.closest('form');
+          Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              form.submit();
+            }
+          });
+        }
+      });
+    </script>
     <script>
       document.getElementById('sidebarCollapse').addEventListener('click', function() {
         document.getElementById('sidebar').classList.toggle('active');

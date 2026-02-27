@@ -38,10 +38,10 @@
                                 <a href="{{ route('admin.projects.edit', $project) }}" class="btn btn-sm btn-outline-secondary">
                                     <i class="bi bi-pencil"></i> Edit
                                 </a>
-                                <form action="{{ route('admin.projects.destroy', $project) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this project?')">
+                                <form action="{{ route('admin.projects.destroy', $project) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger ms-1">
+                                    <button type="button" class="btn btn-sm btn-outline-danger ms-1 delete-confirm">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </form>

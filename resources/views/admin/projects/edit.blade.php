@@ -90,7 +90,7 @@
                             <form action="{{ route('admin.projects.images.destroy', $img) }}" method="POST" class="position-absolute top-0 end-0 m-1">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger rounded-circle p-1 shadow">
+                                <button type="button" class="btn btn-sm btn-danger rounded-circle p-1 shadow delete-confirm">
                                     <i class="bi bi-x"></i>
                                 </button>
                             </form>
