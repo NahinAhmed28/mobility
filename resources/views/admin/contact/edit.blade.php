@@ -1,56 +1,69 @@
 @extends('admin.layout')
 
 @section('content')
-<div class="mb-4">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Contact Settings</li>
+<div class="mb-8">
+    <nav class="flex mb-4" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2">
+            <li>
+                <a href="{{ route('admin.dashboard') }}" class="text-sm font-medium text-gray-500 hover:text-gray-700">Dashboard</a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <i class="bi bi-chevron-right text-gray-400 text-xs"></i>
+                    <span class="ml-2 text-sm font-medium text-gray-900">Contact Settings</span>
+                </div>
+            </li>
         </ol>
     </nav>
-    <h2 class="fw-bold text-dark">Contact Settings</h2>
+    <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl">Contact Settings</h2>
+    <p class="mt-1 text-sm text-gray-500">Configure how users reach you (phone, email, address, etc.).</p>
 </div>
 
-<div class="row">
-    <div class="col-lg-7">
-        <div class="card border-0 shadow-sm">
-            <div class="card-body p-4">
-                <form method="post" action="{{ route('admin.contact.update') }}" enctype="multipart/form-data">
-                    @csrf
-                    <div class="row g-3 mb-4">
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold">Phone Number</label>
-                            <input name="phone" value="{{ old('phone', $contact->phone ?? '') }}" class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold">Public Email</label>
-                            <input name="email" value="{{ old('email', $contact->email ?? '') }}" class="form-control">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label fw-bold">Office Address</label>
-                            <textarea name="address" class="form-control" rows="3">{{ old('address', $contact->address ?? '') }}</textarea>
-                        </div>
+<div class="max-w-4xl bg-white shadow sm:rounded-lg">
+    <div class="px-4 py-6 sm:p-8">
+        <form method="post" action="{{ route('admin.contact.update') }}" enctype="multipart/form-data">
+            @csrf
+            <div class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700">Phone Number</label>
+                        <input type="text" name="phone" value="{{ old('phone', $contact->phone ?? '') }}" 
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                     </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700">Public Email</label>
+                        <input type="email" name="email" value="{{ old('email', $contact->email ?? '') }}" 
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-bold text-gray-700">Office Address</label>
+                        <textarea name="address" rows="3" 
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ old('address', $contact->address ?? '') }}</textarea>
+                    </div>
+                </div>
 
-                    <div class="mb-4 border-top pt-4">
-                        <label class="form-label fw-bold d-block">Contact QR Image</label>
-                        <div class="d-flex align-items-start gap-3">
-                            <div class="flex-grow-1">
-                                <input type="file" name="qr_image" class="form-control mb-1">
-                                <div class="form-text small">Used for easy contact sharing.</div>
+                <div class="pt-6 border-t border-gray-100">
+                    <label class="block text-sm font-bold text-gray-700 mb-4">Contact QR Image</label>
+                    <div class="flex items-start space-x-6">
+                        <div class="flex-grow">
+                            <input type="file" name="qr_image" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                            <p class="mt-2 text-xs text-gray-500 italic">Used for easy contact sharing on mobile devices.</p>
+                        </div>
+                        @if(!empty($contact->qr_image_path))
+                            <div class="flex-shrink-0 p-2 bg-white border border-gray-200 rounded-lg shadow-sm">
+                                <img src="{{ $contact->qr_image_path }}" class="h-24 w-24">
                             </div>
-                            @if(!empty($contact->qr_image_path))
-                                <img src="{{ $contact->qr_image_path }}" style="max-width:100px" class="rounded border">
-                            @endif
-                        </div>
+                        @endif
                     </div>
+                </div>
 
-                    <div class="border-top pt-4">
-                        <button class="btn btn-primary px-5">Update Contact Settings</button>
-                    </div>
-                </form>
+                <div class="pt-8 border-t border-gray-100 flex justify-end">
+                    <button type="submit" class="inline-flex justify-center py-2 px-10 border border-transparent shadow-sm text-sm font-bold rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                        Update Contact Settings
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 @endsection

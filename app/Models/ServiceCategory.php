@@ -26,4 +26,9 @@ class ServiceCategory extends Model
     {
         return $this->hasMany(ServiceItem::class)->orderBy('sort_order');
     }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class)->orderBy('sort_order');
+    }
 }

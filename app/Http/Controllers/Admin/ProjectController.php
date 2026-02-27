@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use App\Models\ProjectCategory;
+use App\Models\ServiceCategory;
 use App\Models\ProjectImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -14,20 +14,20 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::with('category')->orderBy('created_at', 'desc')->get();
+        $projects = Project::with('serviceCategory')->orderBy('created_at', 'desc')->get();
         return view('admin.projects.index', compact('projects'));
     }
 
     public function create()
     {
-        $categories = ProjectCategory::all();
+        $categories = ServiceCategory::all();
         return view('admin.projects.create', compact('categories'));
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
-            'project_category_id' => 'required|exists:project_categories,id',
+            'service_category_id' => 'required|exists:service_categories,id',
             'title' => 'required|string|max:255',
             'location' => 'nullable|string',
             'client' => 'nullable|string',
@@ -45,7 +45,7 @@ class ProjectController extends Controller
 
     public function edit(Project $project)
     {
-        $categories = ProjectCategory::all();
+        $categories = ServiceCategory::all();
         $project->load('images');
         return view('admin.projects.edit', compact('project', 'categories'));
     }
@@ -53,7 +53,7 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $data = $request->validate([
-            'project_category_id' => 'required|exists:project_categories,id',
+            'service_category_id' => 'required|exists:service_categories,id',
             'title' => 'required|string|max:255',
             'location' => 'nullable|string',
             'client' => 'nullable|string',

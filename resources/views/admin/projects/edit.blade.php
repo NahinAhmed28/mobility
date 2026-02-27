@@ -1,103 +1,123 @@
 @extends('admin.layout')
 
 @section('content')
-<div class="mb-4">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('admin.projects.index') }}">Projects</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Edit Project</li>
+<div class="mb-8">
+    <nav class="flex mb-4" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2">
+            <li>
+                <a href="{{ route('admin.projects.index') }}" class="text-sm font-medium text-gray-500 hover:text-gray-700">Projects</a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <i class="bi bi-chevron-right text-gray-400 text-xs"></i>
+                    <span class="ml-2 text-sm font-medium text-gray-900">Edit Project</span>
+                </div>
+            </li>
         </ol>
     </nav>
-    <h2 class="fw-bold text-dark">Edit Project: {{ $project->title }}</h2>
+    <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl">Edit Project: {{ $project->title }}</h2>
 </div>
 
-<div class="row g-4">
-    <div class="col-lg-7">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-header bg-white py-3">
-                <h5 class="m-0 fw-bold text-primary">Project Information</h5>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Main Form -->
+    <div class="lg:col-span-2 space-y-8">
+        <div class="bg-white shadow sm:rounded-lg overflow-hidden">
+            <div class="px-4 py-5 border-b border-gray-100 bg-gray-50 sm:px-6">
+                <h3 class="text-lg font-bold text-gray-900">Project Information</h3>
             </div>
-            <div class="card-body p-4">
+            <div class="px-4 py-6 sm:p-8">
                 <form action="{{ route('admin.projects.update', $project) }}" method="POST">
                     @csrf
-                    <div class="row g-3 mb-4">
-                        <div class="col-md-12">
-                            <label class="form-label fw-bold">Project Title</label>
-                            <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $project->title) }}" required>
-                            @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+                        <div class="sm:col-span-2">
+                            <label class="block text-sm font-bold text-gray-700">Project Title</label>
+                            <input type="text" name="title" value="{{ old('title', $project->title) }}" 
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 @error('title') border-red-500 @enderror" required>
+                            @error('title') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
                         </div>
-                        
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold">Category</label>
-                            <select name="project_category_id" class="form-select" required>
+
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700">Service Category</label>
+                            <select name="service_category_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
                                 @foreach($categories as $cat)
-                                    <option value="{{ $cat->id }}" @selected($cat->id == $project->project_category_id)>{{ $cat->name }}</option>
+                                    <option value="{{ $cat->id }}" @selected($cat->id == $project->service_category_id)>{{ $cat->name }}</option>
                                 @endforeach
                             </select>
                         </div>
 
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold">Year</label>
-                            <input type="text" name="year" class="form-control" value="{{ old('year', $project->year) }}">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700">Year</label>
+                            <input type="text" name="year" value="{{ old('year', $project->year) }}" 
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="e.g. 2023">
                         </div>
 
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold">Location</label>
-                            <input type="text" name="location" class="form-control" value="{{ old('location', $project->location) }}">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700">Location</label>
+                            <input type="text" name="location" value="{{ old('location', $project->location) }}" 
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="e.g. Dhaka, Bangladesh">
                         </div>
 
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold">Client</label>
-                            <input type="text" name="client" class="form-control" value="{{ old('client', $project->client) }}">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700">Client</label>
+                            <input type="text" name="client" value="{{ old('client', $project->client) }}" 
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                         </div>
 
-                        <div class="col-12">
-                            <label class="form-label fw-bold">Description</label>
-                            <textarea name="description" class="form-control" rows="8">{{ old('description', $project->description) }}</textarea>
+                        <div class="sm:col-span-2">
+                            <label class="block text-sm font-bold text-gray-700">Description</label>
+                            <textarea name="description" rows="8" 
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ old('description', $project->description) }}</textarea>
                         </div>
                     </div>
 
-                    <div class="d-flex gap-2 border-top pt-4">
-                        <button type="submit" class="btn btn-primary px-4">Update Project</button>
+                    <div class="mt-8 pt-6 border-t border-gray-100">
+                        <button type="submit" class="inline-flex justify-center py-2 px-10 border border-transparent shadow-sm text-sm font-bold rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors">
+                            Update Project
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-5">
-        <div class="card border-0 shadow-sm mb-4">
-            <div class="card-header bg-white py-3">
-                <h5 class="m-0 fw-bold text-primary">Project Images</h5>
+    <!-- Images Section -->
+    <div class="space-y-8">
+        <div class="bg-white shadow sm:rounded-lg overflow-hidden">
+            <div class="px-4 py-5 border-b border-gray-100 bg-gray-50 sm:px-6">
+                <h3 class="text-lg font-bold text-gray-900">Project Images</h3>
             </div>
-            <div class="card-body p-4">
-                <form action="{{ route('admin.projects.images.upload', $project) }}" method="POST" enctype="multipart/form-data" class="mb-4 pb-4 border-bottom">
+            <div class="px-4 py-6 sm:p-6">
+                <!-- Upload form -->
+                <form action="{{ route('admin.projects.images.upload', $project) }}" method="POST" enctype="multipart/form-data" class="mb-6 pb-6 border-b border-gray-100">
                     @csrf
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold">Upload New Image</label>
-                        <div class="input-group">
-                            <input type="file" name="image" class="form-control" required>
-                            <button class="btn btn-success" type="submit">Upload</button>
-                        </div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Upload New Image</label>
+                    <div class="flex flex-col space-y-3">
+                        <input type="file" name="image" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" required>
+                        <button type="submit" class="w-full inline-flex justify-center items-center py-2 px-4 shadow-sm text-sm font-bold rounded-md text-white bg-green-600 hover:bg-green-700">
+                            <i class="bi bi-cloud-upload mr-2"></i> Upload Image
+                        </button>
                     </div>
                 </form>
 
-                <div class="row g-3">
+                <!-- Images list -->
+                <div class="grid grid-cols-2 gap-4">
                     @forelse($project->images as $img)
-                    <div class="col-md-6">
-                        <div class="position-relative">
-                            <img src="{{ $img->image_path }}" class="img-fluid rounded shadow-sm" style="height: 120px; width: 100%; object-fit: cover;">
-                            <form action="{{ route('admin.projects.images.destroy', $img) }}" method="POST" class="position-absolute top-0 end-0 m-1">
+                    <div class="group relative rounded-lg overflow-hidden border border-gray-100">
+                        <img src="{{ $img->image_path }}" class="h-32 w-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <form action="{{ route('admin.projects.images.destroy', $img) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="button" class="btn btn-sm btn-danger rounded-circle p-1 shadow delete-confirm">
-                                    <i class="bi bi-x"></i>
+                                <button type="button" class="p-2 bg-red-600 text-white rounded-full hover:bg-red-700 shadow-lg delete-confirm">
+                                    <i class="bi bi-trash"></i>
                                 </button>
                             </form>
                         </div>
                     </div>
                     @empty
-                    <div class="col-12 text-center py-4 text-muted small">No images uploaded for this project yet.</div>
+                    <div class="col-span-2 text-center py-8 text-gray-400 italic text-sm">
+                        No images uploaded yet.
+                    </div>
                     @endforelse
                 </div>
             </div>
