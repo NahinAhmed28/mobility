@@ -27,7 +27,7 @@
               @endif
 
               <div class="card border-0 shadow-sm p-4 hover-shadow">
-                  <form action="{{ route('contact.send') }}" method="POST">
+                  <form action="{{ route('contact.store') }}" method="POST">
                     @csrf
                     <div class="row g-3">
                       <div class="col-md-6">
