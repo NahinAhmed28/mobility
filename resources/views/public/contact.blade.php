@@ -113,11 +113,11 @@
               <h6 class="fw-bold text-brand-secondary mb-3 text-uppercase">Business Hours</h6>
               <ul class="list-unstyled d-grid gap-2 small mb-0">
                 <li class="d-flex justify-content-between border-bottom border-white border-opacity-10 pb-2">
-                  <span>Monday – Friday</span>
+                  <span>Sunday – Thursday</span>
                   <span>{{ $contact->weekday_hours ?? '9:00 AM - 6:00 PM' }}</span>
                 </li>
                 <li class="d-flex justify-content-between pt-1">
-                  <span>Saturday – Sunday</span>
+                  <span>Friday – Saturday</span>
                   <span class="text-brand-secondary">{{ $contact->weekend_hours ?? 'Closed' }}</span>
                 </li>
               </ul>

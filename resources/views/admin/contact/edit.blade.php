@@ -65,14 +65,14 @@
                     <label class="block text-sm font-bold text-gray-700 mb-4">Business Hours</label>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-600 mb-1">Monday – Friday</label>
+                            <label class="block text-sm font-medium text-gray-600 mb-1">Sunday – Thursday</label>
                             <input type="text" name="weekday_hours"
                                 value="{{ old('weekday_hours', $contact->weekday_hours ?? '9:00 AM - 6:00 PM') }}"
                                 placeholder="e.g. 9:00 AM - 6:00 PM"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-600 mb-1">Saturday – Sunday</label>
+                            <label class="block text-sm font-medium text-gray-600 mb-1">Friday – Saturday</label>
                             <input type="text" name="weekend_hours"
                                 value="{{ old('weekend_hours', $contact->weekend_hours ?? 'Closed') }}"
                                 placeholder="e.g. Closed or 10:00 AM - 2:00 PM"

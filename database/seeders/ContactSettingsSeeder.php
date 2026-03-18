@@ -21,6 +21,8 @@ class ContactSettingsSeeder extends Seeder
             'phone' => '+8801317272900',
             'email' => 'syedmwaliullah@gmail.com',
             'address' => 'House 176 (4th Floor), Road 2, Baridhara DOHS, Dhaka',
+            'weekday_hours' => '9:00 AM - 6:00 PM',
+            'weekend_hours' => 'Closed',
         ]);
     }
 }
