@@ -30,12 +30,10 @@ class CompanyProfileController extends Controller
         if (! $profile) $profile = new CompanyProfile();
 
         if ($request->hasFile('logo')) {
-            $path = $request->file('logo')->store('public/media');
-            $data['logo_path'] = Storage::url($path);
+            $data['logo_path'] = $request->file('logo')->store('media', 'public');
         }
         if ($request->hasFile('hero_image')) {
-            $path = $request->file('hero_image')->store('public/media');
-            $data['hero_image_path'] = Storage::url($path);
+            $data['hero_image_path'] = $request->file('hero_image')->store('media', 'public');
         }
 
         $profile->fill($data);

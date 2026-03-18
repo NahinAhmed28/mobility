@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             ContactSettingsSeeder::class,
             ServicesSeeder::class,
             ProjectsSeeder::class,
+            SoftwareModuleSeeder::class,
             // Add new seeders here if needed
         ]);
     }

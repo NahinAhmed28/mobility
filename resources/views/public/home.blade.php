@@ -2,7 +2,11 @@
 
 @section('content')
   <!-- Hero Section - Matching Reference Aesthetics -->
-  <div class="hero-section">
+  @php
+    $heroImage = $company->hero_image_path ?? '';
+    $heroUrl = $heroImage ? (Str::startsWith($heroImage, 'http') ? $heroImage : asset('storage/' . $heroImage)) : '';
+  @endphp
+  <div class="hero-section" style="{{ $heroUrl ? 'background-image: linear-gradient(rgba(26, 45, 90, 0.7), rgba(26, 45, 90, 0.7)), url(' . $heroUrl . '); background-size: cover; background-position: center;' : '' }}">
     <div class="container py-lg-5">
       <div class="row align-items-center g-5">
         <div class="col-lg-7 text-start">
@@ -16,9 +20,17 @@
             <a class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill" href="{{ route('projects') }}">VIEW PROJECTS</a>
           </div>
         </div>
-        <div class="col-lg-5 d-none d-lg-flex justify-content-center">
-            <div class="hero-graphic-circle d-flex align-items-center justify-content-center">
-                <div class="hero-brand-logo shadow-lg">M</div>
+        <div class="col-lg-5 d-flex justify-content-center mt-5 mt-lg-0">
+            <div class="hero-graphic-circle d-flex align-items-center justify-content-center overflow-hidden">
+                @php 
+                    $logo = $company->logo_path ?? null; 
+                    $logoUrl = $logo ? (Str::startsWith($logo, 'http') ? $logo : asset('storage/' . $logo)) : null;
+                @endphp
+                @if($logoUrl)
+                    <img src="{{ $logoUrl }}" alt="{{ $company->name }}" class="img-fluid" style="max-height: 90%; width: 90%; object-fit: contain;">
+                @else
+                    <div class="hero-brand-logo">M</div>
+                @endif
             </div>
         </div>
       </div>

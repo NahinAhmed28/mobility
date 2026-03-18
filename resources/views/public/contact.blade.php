@@ -73,7 +73,7 @@
                 </div>
                 <div>
                   <h6 class="fw-bold text-brand-primary mb-1">Our Location</h6>
-                  <p class="text-muted small mb-0">{{ $company->address ?? 'Address not available' }}</p>
+                  <p class="text-muted small mb-0">{!! nl2br(e($contact->address ?? $company->address ?? 'Address not available')) !!}</p>
                 </div>
               </div>
             </div>
@@ -85,7 +85,10 @@
                 </div>
                 <div>
                   <h6 class="fw-bold text-brand-primary mb-1">Call Us</h6>
-                  <p class="text-muted small mb-0">{{ $company->phone ?? 'Phone number not available' }}</p>
+                  @php $phones = preg_split('/\r\n|\r|\n/', $contact->phone ?? $company->phone ?? 'Phone number not available'); @endphp
+                  @foreach($phones as $p)
+                    <p class="text-muted small mb-0">{{ trim($p) }}</p>
+                  @endforeach
                 </div>
               </div>
             </div>
@@ -97,7 +100,10 @@
                 </div>
                 <div>
                   <h6 class="fw-bold text-brand-primary mb-1">Email Support</h6>
-                  <p class="text-muted small mb-0">{{ $company->email ?? 'Email not available' }}</p>
+                  @php $emails = preg_split('/\r\n|\r|\n/', $contact->email ?? $company->email ?? 'Email not available'); @endphp
+                  @foreach($emails as $e)
+                    <p class="text-muted small mb-0">{{ trim($e) }}</p>
+                  @endforeach
                 </div>
               </div>
             </div>
@@ -107,15 +113,29 @@
               <h6 class="fw-bold text-brand-secondary mb-3 text-uppercase">Business Hours</h6>
               <ul class="list-unstyled d-grid gap-2 small mb-0">
                 <li class="d-flex justify-content-between border-bottom border-white border-opacity-10 pb-2">
-                  <span>Monday - Friday</span>
-                  <span>9:00 AM - 6:00 PM</span>
+                  <span>Monday – Friday</span>
+                  <span>{{ $contact->weekday_hours ?? '9:00 AM - 6:00 PM' }}</span>
                 </li>
                 <li class="d-flex justify-content-between pt-1">
-                  <span>Saturday - Sunday</span>
-                  <span class="text-brand-secondary">Closed</span>
+                  <span>Saturday – Sunday</span>
+                  <span class="text-brand-secondary">{{ $contact->weekend_hours ?? 'Closed' }}</span>
                 </li>
               </ul>
             </div>
+
+            <!-- QR Code -->
+            @if(!empty($contact->qr_image_path))
+              <div class="card border-0 shadow-sm p-4 text-center">
+                <h6 class="fw-bold text-brand-primary mb-3 text-uppercase">Scan to Save Contact</h6>
+                <div class="bg-light p-3 rounded d-inline-block mx-auto">
+                  @php
+                    $qrPath = $contact->qr_image_path;
+                    $qrUrl = Str::startsWith($qrPath, 'http') ? $qrPath : asset('storage/' . $qrPath);
+                  @endphp
+                  <img src="{{ $qrUrl }}" class="img-fluid" style="max-height: 150px;" alt="Contact QR">
+                </div>
+              </div>
+            @endif
           </div>
         </div>
       </div>

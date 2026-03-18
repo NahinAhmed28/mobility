@@ -19,17 +19,18 @@ class ContactSettingsController extends Controller
     {
         $data = $request->validate([
             'phone' => 'nullable|string',
-            'email' => 'nullable|email',
+            'email' => 'nullable|string',
             'address' => 'nullable|string',
             'qr_image' => 'nullable|image|max:2048',
+            'weekday_hours' => 'nullable|string',
+            'weekend_hours' => 'nullable|string',
         ]);
 
         $contact = ContactSetting::first();
         if (! $contact) $contact = new ContactSetting();
 
         if ($request->hasFile('qr_image')) {
-            $path = $request->file('qr_image')->store('public/media');
-            $data['qr_image_path'] = Storage::url($path);
+            $data['qr_image_path'] = $request->file('qr_image')->store('media', 'public');
         }
 
         $contact->fill($data);

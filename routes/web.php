@@ -16,6 +16,10 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
+// Software Sell Routes
+Route::get('/software', [\App\Http\Controllers\Public\SoftwareController::class, 'index'])->name('software');
+Route::get('/software/{product:slug}', [\App\Http\Controllers\Public\SoftwareController::class, 'show'])->name('software.show');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -54,6 +58,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Project Images
         Route::post('/projects/{project}/images', [\App\Http\Controllers\Admin\ProjectController::class, 'uploadImage'])->name('projects.images.upload');
         Route::delete('/projects/images/{image}', [\App\Http\Controllers\Admin\ProjectController::class, 'destroyImage'])->name('projects.images.destroy');
+
+        // Software Sell Management
+        Route::prefix('software')->name('software.')->group(function () {
+            Route::resource('categories', \App\Http\Controllers\Admin\SoftwareCategoryController::class);
+            Route::resource('products', \App\Http\Controllers\Admin\SoftwareProductController::class);
+            Route::post('products/{product}/images', [\App\Http\Controllers\Admin\SoftwareProductController::class, 'uploadImage'])->name('products.images.upload');
+            Route::delete('products/images/{image}', [\App\Http\Controllers\Admin\SoftwareProductController::class, 'destroyImage'])->name('products.images.destroy');
+        });
     });
 });
 

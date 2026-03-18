@@ -11,7 +11,7 @@ class ContactSetting extends Model
 
     protected $table = 'contact_settings';
 
-    protected $fillable = ['phone','email','address','qr_image_path','socials_json'];
+    protected $fillable = ['phone','email','address','qr_image_path','socials_json','weekday_hours','weekend_hours'];
 
     protected $casts = [
         'socials_json' => 'array',

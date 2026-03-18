@@ -18,19 +18,19 @@
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                <table class="min-w-full divide-y divide-gray-200">
+                <table class="min-w-full divide-y divide-gray-200" style="table-layout: auto;">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="min-width: 300px;">
                                 Project Info
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="min-width: 150px;">
                                 Category
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="min-width: 150px;">
                                 Details
                             </th>
-                            <th scope="col" class="relative px-6 py-3">
+                            <th scope="col" class="relative px-6 py-3" style="min-width: 120px;">
                                 <span class="sr-only">Actions</span>
                             </th>
                         </tr>
@@ -38,33 +38,33 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         @forelse($projects as $project)
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 py-4">
                                 <div class="flex items-center">
                                     <div class="ml-4">
-                                        <div class="text-sm font-bold text-gray-900">
+                                        <div class="text-sm font-bold text-gray-900 mb-1">
                                             {{ $project->title }}
                                         </div>
-                                        <div class="text-xs text-gray-500">
-                                            {{ Str::limit($project->description, 50) }}
+                                        <div class="text-xs text-gray-500 line-clamp-2 max-w-md">
+                                            {{ $project->description }}
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                            <td class="px-6 py-4">
+                                <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                                     {{ $project->serviceCategory->name ?? 'Uncategorized' }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                <div class="flex flex-col">
+                            <td class="px-6 py-4 text-sm text-gray-500">
+                                <div class="flex flex-col space-y-1">
                                     <span><i class="bi bi-geo-alt mr-1"></i> {{ $project->location ?? '-' }}</span>
                                     <span><i class="bi bi-calendar-event mr-1"></i> {{ $project->year ?? '-' }}</span>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <td class="px-6 py-4 text-right text-sm font-medium">
                                 <div class="flex items-center justify-end space-x-3">
-                                    <a href="{{ route('admin.projects.edit', $project) }}" class="text-blue-600 hover:text-blue-900 bg-blue-50 p-2 rounded-md">
-                                        <i class="bi bi-pencil"></i>
+                                    <a href="{{ route('admin.projects.edit', $project) }}" class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                                        <i class="bi bi-pencil"></i> Edit
                                     </a>
                                     <form action="{{ route('admin.projects.destroy', $project) }}" method="POST" class="inline">
                                         @csrf

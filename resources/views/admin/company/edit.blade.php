@@ -53,29 +53,45 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 border-t border-gray-100">
-                    <div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 border-t border-gray-100">
+                    <div class="space-y-4">
                         <label class="block text-sm font-bold text-gray-700 mb-2">Company Logo</label>
-                        <div class="flex items-center space-x-4">
-                            <input type="file" name="logo" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                            @if(!empty($profile->logo_path))
-                                <div class="p-2 bg-gray-50 rounded border border-gray-100">
-                                    <img src="{{ $profile->logo_path }}" class="h-10 object-contain">
-                                </div>
-                            @endif
+                        <div id="logo-preview-container" class="{{ empty($profile->logo_path) ? 'hidden' : '' }} mb-3">
+                            @php
+                                $logoPath = $profile->logo_path ?? '';
+                                $logoUrl = $logoPath ? (Str::startsWith($logoPath, 'http') ? $logoPath : asset('storage/' . $logoPath)) : '#';
+                            @endphp
+                            <img id="logo-preview" src="{{ $logoUrl }}" class="h-16 object-contain rounded border p-1 bg-gray-50">
                         </div>
+                        <input type="file" name="logo" id="logo-input" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
                     </div>
 
-                    <div>
+                    <div class="space-y-4">
                         <label class="block text-sm font-bold text-gray-700 mb-2">Hero Background Image</label>
-                        <div class="flex items-center space-x-4">
-                            <input type="file" name="hero_image" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                            @if(!empty($profile->hero_image_path))
-                                <div class="p-1 bg-gray-50 rounded border border-gray-100 shadow-sm">
-                                    <img src="{{ $profile->hero_image_path }}" class="h-16 w-24 object-cover rounded">
-                                </div>
-                            @endif
+                        <div id="hero-preview-container" class="{{ empty($profile->hero_image_path) ? 'hidden' : '' }} mb-3">
+                            @php
+                                $heroPath = $profile->hero_image_path ?? '';
+                                $heroUrl = $heroPath ? (Str::startsWith($heroPath, 'http') ? $heroPath : asset('storage/' . $heroPath)) : '#';
+                            @endphp
+                            <img id="hero-preview" src="{{ $heroUrl }}" class="h-24 w-full object-cover rounded border p-1 bg-gray-50 shadow-sm">
                         </div>
+                        <input type="file" name="hero_image" id="hero-input" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
                     </div>
+                </div>
+
+                <script>
+                    function setupPreview(inputId, previewId, containerId) {
+                        document.getElementById(inputId).onchange = evt => {
+                            const [file] = evt.target.files
+                            if (file) {
+                                document.getElementById(previewId).src = URL.createObjectURL(file)
+                                document.getElementById(containerId).classList.remove('hidden')
+                            }
+                        }
+                    }
+                    setupPreview('logo-input', 'logo-preview', 'logo-preview-container');
+                    setupPreview('hero-input', 'hero-preview', 'hero-preview-container');
+                </script>
                 </div>
 
                 <div class="pt-8 border-t border-gray-100">

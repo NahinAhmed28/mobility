@@ -94,25 +94,24 @@ body {
 }
 
 .hero-graphic-circle {
-    width: 320px;
-    height: 320px;
-    border: 15px solid rgba(249, 176, 0, 0.15);
+    width: clamp(240px, 40vw, 320px);
+    height: clamp(240px, 40vw, 320px);
+    border: 10px solid rgba(249, 176, 0, 0.2);
     border-radius: 50%;
     position: relative;
+    background-color: transparent;
 }
 
 .hero-brand-logo {
-    width: 200px;
-    height: 200px;
-    background-color: var(--secondary-color);
-    border-radius: 50%;
+    width: 65%;
+    height: 65%;
+    background-color: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 900;
     color: var(--primary-color);
-    font-size: 5rem;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    font-size: clamp(3rem, 8vw, 5rem);
 }
 
 /* Card Styling */

@@ -45,6 +45,22 @@
                 <i class="mr-3 text-lg bi bi-collection {{ Route::is('admin.projects.*') ? 'text-blue-400' : 'text-slate-400 group-hover:text-slate-300' }}"></i>
                 Projects
             </a>
+
+            <div class="pt-4 pb-1">
+                <p class="px-3 text-xs font-semibold tracking-wider uppercase text-slate-500">Software Sell</p>
+            </div>
+
+            <a href="{{ route('admin.software.categories.index') }}" 
+                class="flex items-center px-3 py-2 text-sm font-medium rounded-md group {{ Route::is('admin.software.categories.*') ? 'bg-slate-800 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                <i class="mr-3 text-lg bi bi-folder {{ Route::is('admin.software.categories.*') ? 'text-blue-400' : 'text-slate-400 group-hover:text-slate-300' }}"></i>
+                Software Categories
+            </a>
+
+            <a href="{{ route('admin.software.products.index') }}" 
+                class="flex items-center px-3 py-2 text-sm font-medium rounded-md group {{ Route::is('admin.software.products.*') ? 'bg-slate-800 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                <i class="mr-3 text-lg bi bi-pc-display {{ Route::is('admin.software.products.*') ? 'text-blue-400' : 'text-slate-400 group-hover:text-slate-300' }}"></i>
+                Software Products
+            </a>
         </nav>
     </div>
 

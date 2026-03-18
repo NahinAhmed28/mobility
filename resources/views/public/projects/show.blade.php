@@ -19,7 +19,7 @@
             <div class="d-flex flex-wrap gap-4 text-brand-secondary small fw-bold">
                 @if($project->location) <span><i class="bi bi-geo-alt me-2"></i>{{ $project->location }}</span> @endif
                 @if($project->year) <span><i class="bi bi-calendar-event me-2"></i>{{ $project->year }}</span> @endif
-                @if($project->category) <span><i class="bi bi-folder me-2"></i>{{ $project->category->name }}</span> @endif
+                @if($project->serviceCategory) <span><i class="bi bi-folder me-2"></i>{{ $project->serviceCategory->name }}</span> @endif
             </div>
         </div>
       </div>
@@ -44,7 +44,11 @@
                   <div class="carousel-inner">
                     @foreach($project->images as $i => $img)
                       <div class="carousel-item @if($i==0) active @endif">
-                        <img src="{{ $img->image_path }}" class="d-block w-100" alt="{{ $project->title }}" style="max-height: 500px; object-fit: cover;">
+                        @php
+                          $imgPath = $img->image_path;
+                          $imgUrl = Str::startsWith($imgPath, 'http') ? $imgPath : asset('storage/' . $imgPath);
+                        @endphp
+                        <img src="{{ $imgUrl }}" class="d-block w-100" alt="{{ $project->title }}" style="max-height: 500px; object-fit: cover;">
                       </div>
                     @endforeach
                   </div>

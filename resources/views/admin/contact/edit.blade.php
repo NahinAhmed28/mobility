@@ -26,14 +26,14 @@
             <div class="space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-sm font-bold text-gray-700">Phone Number</label>
-                        <input type="text" name="phone" value="{{ old('phone', $contact->phone ?? '') }}" 
-                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        <label class="block text-sm font-bold text-gray-700">Phone Numbers (One per line)</label>
+                        <textarea name="phone" rows="2" 
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ old('phone', $contact->phone ?? '') }}</textarea>
                     </div>
                     <div>
-                        <label class="block text-sm font-bold text-gray-700">Public Email</label>
-                        <input type="email" name="email" value="{{ old('email', $contact->email ?? '') }}" 
-                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        <label class="block text-sm font-bold text-gray-700">Public Emails (One per line)</label>
+                        <textarea name="email" rows="2" 
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ old('email', $contact->email ?? '') }}</textarea>
                     </div>
                     <div class="md:col-span-2">
                         <label class="block text-sm font-bold text-gray-700">Office Address</label>
@@ -51,10 +51,35 @@
                         </div>
                         @if(!empty($contact->qr_image_path))
                             <div class="flex-shrink-0 p-2 bg-white border border-gray-200 rounded-lg shadow-sm">
-                                <img src="{{ $contact->qr_image_path }}" class="h-24 w-24">
+                                @php
+                                    $qrPath = $contact->qr_image_path;
+                                    $qrUrl = Str::startsWith($qrPath, 'http') ? $qrPath : asset('storage/' . $qrPath);
+                                @endphp
+                                <img src="{{ $qrUrl }}" class="h-24 w-24">
                             </div>
                         @endif
                     </div>
+                </div>
+
+                <div class="pt-6 border-t border-gray-100">
+                    <label class="block text-sm font-bold text-gray-700 mb-4">Business Hours</label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 mb-1">Monday – Friday</label>
+                            <input type="text" name="weekday_hours"
+                                value="{{ old('weekday_hours', $contact->weekday_hours ?? '9:00 AM - 6:00 PM') }}"
+                                placeholder="e.g. 9:00 AM - 6:00 PM"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 mb-1">Saturday – Sunday</label>
+                            <input type="text" name="weekend_hours"
+                                value="{{ old('weekend_hours', $contact->weekend_hours ?? 'Closed') }}"
+                                placeholder="e.g. Closed or 10:00 AM - 2:00 PM"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+                    <p class="mt-2 text-xs text-gray-500 italic">These hours will be shown on the public contact page.</p>
                 </div>
 
                 <div class="pt-8 border-t border-gray-100 flex justify-end">

@@ -24,15 +24,25 @@
         <div class="d-grid gap-3 small text-white-50">
           <div class="d-flex align-items-start gap-2">
             <i class="bi bi-geo-alt text-brand-secondary"></i>
-            <span>{{ $contact->address ?? 'Dhaka, Bangladesh' }}</span>
+            <span>{!! nl2br(e($contact->address ?? 'Dhaka, Bangladesh')) !!}</span>
           </div>
-          <div class="d-flex align-items-center gap-2">
-            <i class="bi bi-telephone text-brand-secondary"></i>
-            <span>{{ $contact->phone ?? '' }}</span>
+          <div class="d-flex align-items-start gap-2">
+            <i class="bi bi-telephone text-brand-secondary mt-1"></i>
+            <div>
+                @php $phones = preg_split('/\r\n|\r|\n/', $contact->phone ?? ''); @endphp
+                @foreach($phones as $p)
+                  @if(trim($p)) <div class="mb-1">{{ trim($p) }}</div> @endif
+                @endforeach
+            </div>
           </div>
-          <div class="d-flex align-items-center gap-2">
-            <i class="bi bi-envelope text-brand-secondary"></i>
-            <span>{{ $contact->email ?? '' }}</span>
+          <div class="d-flex align-items-start gap-2">
+            <i class="bi bi-envelope text-brand-secondary mt-1"></i>
+            <div>
+                @php $emails = preg_split('/\r\n|\r|\n/', $contact->email ?? ''); @endphp
+                @foreach($emails as $e)
+                  @if(trim($e)) <div class="mb-1">{{ trim($e) }}</div> @endif
+                @endforeach
+            </div>
           </div>
         </div>
       </div>

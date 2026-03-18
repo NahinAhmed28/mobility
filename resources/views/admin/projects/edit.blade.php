@@ -91,19 +91,36 @@
                 <form action="{{ route('admin.projects.images.upload', $project) }}" method="POST" enctype="multipart/form-data" class="mb-6 pb-6 border-b border-gray-100">
                     @csrf
                     <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Upload New Image</label>
-                    <div class="flex flex-col space-y-3">
-                        <input type="file" name="image" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" required>
-                        <button type="submit" class="w-full inline-flex justify-center items-center py-2 px-4 shadow-sm text-sm font-bold rounded-md text-white bg-green-600 hover:bg-green-700">
+                    <div class="flex flex-col space-y-4">
+                        <div id="image-preview-container" class="hidden">
+                            <img id="image-preview" src="#" class="h-48 w-full object-cover rounded-lg border-2 border-dashed border-gray-300">
+                        </div>
+                        <input type="file" name="image" id="project-image-input" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" required>
+                        <button type="submit" class="w-full inline-flex justify-center items-center py-2 px-4 shadow-sm text-sm font-bold rounded-md text-white bg-green-600 hover:bg-green-700 transition-colors">
                             <i class="bi bi-cloud-upload mr-2"></i> Upload Image
                         </button>
                     </div>
                 </form>
 
+                <script>
+                    document.getElementById('project-image-input').onchange = evt => {
+                        const [file] = evt.target.files
+                        if (file) {
+                            document.getElementById('image-preview').src = URL.createObjectURL(file)
+                            document.getElementById('image-preview-container').classList.remove('hidden')
+                        }
+                    }
+                </script>
+
                 <!-- Images list -->
                 <div class="grid grid-cols-2 gap-4">
                     @forelse($project->images as $img)
-                    <div class="group relative rounded-lg overflow-hidden border border-gray-100">
-                        <img src="{{ $img->image_path }}" class="h-32 w-full object-cover">
+                    <div class="group relative rounded-lg overflow-hidden border border-gray-200 shadow-sm transition-all hover:shadow-md">
+                        @php
+                            $path = $img->image_path;
+                            $url = Str::startsWith($path, 'http') ? $path : asset('storage/' . $path);
+                        @endphp
+                        <img src="{{ $url }}" class="h-32 w-full object-cover">
                         <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                             <form action="{{ route('admin.projects.images.destroy', $img) }}" method="POST">
                                 @csrf

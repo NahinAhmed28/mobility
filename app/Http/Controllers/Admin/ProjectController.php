@@ -64,7 +64,7 @@ class ProjectController extends Controller
 
         $data['slug'] = Str::slug($data['title']);
         $project->update($data);
-        \Illuminate\Support\Facades\Cache::forget('public_project_categories');
+        \Illuminate\Support\Facades\Cache::forget('public_service_projects');
 
         return redirect()->route('admin.projects.index')->with('success', 'Project updated successfully');
     }
@@ -72,7 +72,7 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $project->delete();
-        \Illuminate\Support\Facades\Cache::forget('public_project_categories');
+        \Illuminate\Support\Facades\Cache::forget('public_service_projects');
 
         return redirect()->route('admin.projects.index')->with('success', 'Project deleted successfully');
     }
@@ -84,9 +84,9 @@ class ProjectController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('public/projects');
+            $path = $request->file('image')->store('projects', 'public');
             $project->images()->create([
-                'image_path' => Storage::url($path),
+                'image_path' => $path,
             ]);
             \Illuminate\Support\Facades\Cache::forget('public_project_categories');
         }
