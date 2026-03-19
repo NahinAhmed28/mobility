@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\SoftwareCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 
 class SoftwareCategoryController extends Controller
 {
@@ -60,6 +61,7 @@ class SoftwareCategoryController extends Controller
     public function destroy(SoftwareCategory $category)
     {
         $category->delete();
+        Cache::forget('public_software_module');
         return redirect()->route('admin.software.categories.index')->with('success', 'Software category deleted!');
     }
 }

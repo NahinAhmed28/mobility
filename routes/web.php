@@ -21,9 +21,7 @@ Route::get('/software', [\App\Http\Controllers\Public\SoftwareController::class,
 Route::get('/software/{product:slug}', [\App\Http\Controllers\Public\SoftwareController::class, 'show'])->name('software.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::redirect('/dashboard', '/admin');
 
     // Admin Routes
     Route::prefix('admin')->name('admin.')->group(function () {

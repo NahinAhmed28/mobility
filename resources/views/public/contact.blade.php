@@ -26,7 +26,7 @@
                 </div>
               @endif
 
-              <div class="card border-0 shadow-sm p-4 hover-shadow">
+                <div class="card border-0 shadow-sm p-4 hover-shadow">
                   <form action="{{ route('contact.store') }}" method="POST">
                     @csrf
                     <div class="row g-3">
@@ -58,6 +58,17 @@
                     </div>
                   </form>
                 </div>
+
+                <section class="py-5 bg-light">
+                  <div class="container">
+                    <h3 class="text-center section-title mb-4">Find Us</h3>
+                    <div class="row">
+                      <div class="col-lg-8 mx-auto w-100">
+                        <div class="pt-2" id="map" style='height:400px'></div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
             </div>
           </div>
         </div>
@@ -143,19 +154,36 @@
   </section>
 
   <!-- Map Placeholder (Optional) -->
-  <section class="py-5 bg-light">
-    <div class="container">
-      <h3 class="text-center section-title mb-4">Find Us</h3>
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-          <div class="bg-dark rounded" style="height: 400px; display: flex; align-items: center; justify-content: center;">
-            <div class="text-white text-center">
-              <i class="bi bi-map" style="font-size: 3rem;"></i>
-              <p class="mt-3">Map integration coming soon</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+   <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCw3JG8x31XxAZ1XBO4Szy_OdDp8qCMs28&callback=initMap"></script>
+        <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+
+        <script>
+
+            function initMap() {
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 16,
+                    center: { lat: 23.814772932063757, lng: 90.413825288304 },
+                });
+
+                marker = new google.maps.Marker({
+                    map,
+                    draggable: true,
+                    animation: google.maps.Animation.DROP,
+                    position: { lat: 23.814772932063757, lng: 90.413825288304 },
+                });
+                marker.addListener("click", toggleBounce);
+            }
+
+            function toggleBounce() {
+                if (marker.getAnimation() !== null) {
+                    marker.setAnimation(null);
+                } else {
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                }
+            }
+
+            window.initMap = initMap;
+
+        </script>
 @endsection

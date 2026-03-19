@@ -21,7 +21,7 @@ class ContactSettingsController extends Controller
             'phone' => 'nullable|string',
             'email' => 'nullable|string',
             'address' => 'nullable|string',
-            'qr_image' => 'nullable|image|max:2048',
+            'qr_image' => 'nullable|image|max:3072',
             'weekday_hours' => 'nullable|string',
             'weekend_hours' => 'nullable|string',
         ]);

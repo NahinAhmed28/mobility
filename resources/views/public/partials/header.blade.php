@@ -6,11 +6,11 @@
         @php
             $logoUrl = Str::startsWith($logo, 'http') ? $logo : asset('storage/' . $logo);
         @endphp
-        <img src="{{ $logoUrl }}" alt="Logo" height="45" class="d-inline-block align-text-top me-2">
+        <img src="{{ $logoUrl }}" alt="Logo" height="40" class="d-inline-block align-text-top me-2">
       @else
-        <div class="logo-m">M</div>
-        <span class="fw-bold fs-4 tracking-tight">MOBILITY <span class="text-brand-secondary">UNLIMITED</span></span>
+        <div class="logo-m me-2">M</div>
       @endif
+      <span class="fw-bold fs-4 tracking-tight">MOBILITY <span class="text-brand-secondary">UNLIMITED</span></span>
     </a>
     
     <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

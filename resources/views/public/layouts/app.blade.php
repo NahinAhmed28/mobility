@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" type="image/png" href="{{ asset('storage/media/logo_for_title.png') }}">
     <title>{{ $metaTitle ?? ($company->name ?? 'Mobility Unlimited') }}</title>
     <meta name="description" content="{{ $metaDescription ?? ($company->tagline ?? '') }}">
     <!-- Bootstrap 5 CSS -->
