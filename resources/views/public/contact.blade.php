@@ -163,14 +163,14 @@
             function initMap() {
                 const map = new google.maps.Map(document.getElementById("map"), {
                     zoom: 16,
-                    center: { lat: 23.814772932063757, lng: 90.413825288304 },
+                    center: { lat: 23.81475195451774, lng: 90.41183377802433 },
                 });
 
                 marker = new google.maps.Marker({
                     map,
                     draggable: true,
                     animation: google.maps.Animation.DROP,
-                    position: { lat: 23.814772932063757, lng: 90.413825288304 },
+                    position: { lat: 23.81475195451774, lng: 90.41183377802433 },
                 });
                 marker.addListener("click", toggleBounce);
             }

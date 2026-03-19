@@ -50,6 +50,7 @@
     <hr class="my-5 border-white opacity-10">
     <div class="text-center text-white-50 small">
       &copy; {{ date('Y') }} {{ $company->name ?? 'Mobility Unlimited' }}. All rights reserved.
+      <br> made with ❤️ by <a href="https://www.linkedin.com/in/ahmed-nur-a-jalal-b025341a5/" target="_blank" class="text-white-100 text-decoration-none">Ahmed Nur A Jalal</a>
     </div>
   </div>
 </footer>

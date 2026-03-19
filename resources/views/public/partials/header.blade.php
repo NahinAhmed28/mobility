@@ -20,19 +20,19 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto gap-lg-3 mt-3 mt-lg-0">
         <li class="nav-item">
+          <a class="nav-link fw-semibold text-uppercase small {{ Route::is('about*') ? 'active' : '' }}" href="{{ route('about') }}">About Us</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link fw-semibold text-uppercase small" href="{{ route('services') }}">Services</a>
         </li>
         <li class="nav-item">
           <a class="nav-link fw-semibold text-uppercase small {{ Route::is('projects*') ? 'active' : '' }}" href="{{ route('projects') }}">Projects</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link fw-semibold text-uppercase small {{ Route::is('software*') ? 'active' : '' }}" href="{{ route('software') }}">Software</a>
+          <a class="nav-link fw-semibold text-uppercase small {{ Route::is('software*') ? 'active' : '' }}" href="{{ route('software') }}">Software Sells</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link fw-semibold text-uppercase small {{ Route::is('about*') ? 'active' : '' }}" href="{{ route('about') }}">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link fw-semibold text-uppercase small" href="{{ route('contact') }}">Contact</a>
+          <a class="nav-link fw-semibold text-uppercase small" href="{{ route('contact') }}">Contact Us</a>
         </li>
       </ul>
     </div>
