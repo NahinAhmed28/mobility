@@ -4,7 +4,7 @@
 <div class="bg-brand-primary py-5 mb-5">
     <div class="container py-lg-4 text-center">
         <h1 class="display-4 fw-bold text-white mb-3">SOFTWARE SOLUTIONS</h1>
-        <p class="lead text-white-50 max-w-2xl mx-auto">Industry-leading software for transport modeling, economic analysis, and more.</p>
+        <p class="lead text-white-50 max-w-2xl mx-auto">Industry-leading software for transport Modelling, economic analysis, and more.</p>
     </div>
 </div>
 

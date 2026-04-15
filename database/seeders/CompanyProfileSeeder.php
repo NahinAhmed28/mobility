@@ -21,7 +21,7 @@ class CompanyProfileSeeder extends Seeder
             'name' => 'Mobility Unlimited',
             'tagline' => 'Transportation Planning Services',
             'intro' => 'We provide specialist transport planning, design, and engineering services to deliver sustainable mobility solutions.',
-            'about_html' => '<h3>About Mobility Unlimited</h3><p>Mobility Unlimited is a leading transport planning consultancy with over a decade of experience delivering comprehensive feasibility studies, design solutions, and strategic advisory services. We specialize in:</p><ul><li>Feasibility Studies & Financial Analysis</li><li>Transportation Planning & Modeling</li><li>Traffic Impact Assessment</li><li>Road & Railway Design</li><li>Project Management & Supervision</li></ul><p>Our team of experienced professionals has successfully completed projects across multiple countries, delivering sustainable solutions to complex transportation challenges.</p>',
+            'about_html' => '<h3>About Mobility Unlimited</h3><p>Mobility Unlimited is a leading transport planning consultancy with over a decade of experience delivering comprehensive feasibility studies, design solutions, and strategic advisory services. We specialize in:</p><ul><li>Feasibility Studies & Financial Analysis</li><li>Transportation Planning & Modelling</li><li>Traffic Impact Assessment</li><li>Road & Railway Design</li><li>Project Management & Supervision</li></ul><p>Our team of experienced professionals has successfully completed projects across multiple countries, delivering sustainable solutions to complex transportation challenges.</p>',
         ]);
     }
 }

@@ -9,9 +9,15 @@ class SoftwareModuleSeeder extends Seeder
 {
     public function run(): void
     {
+        // Truncate existing data to avoid duplicates
+        \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
+        \App\Models\SoftwareProduct::truncate();
+        \App\Models\SoftwareCategory::truncate();
+        \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
+
         $categories = [
             [
-                'name' => 'Transport Modeling',
+                'name' => 'Transport Modelling',
                 'description' => 'Advanced software solutions for strategic transport planning, traffic engineering, and pedestrian simulation.',
                 'products' => ['Visum', 'Vissim', 'Viswalk', 'Cube', 'TransCAD', 'Aimsun']
             ],
@@ -31,13 +37,13 @@ class SoftwareModuleSeeder extends Seeder
             ]);
 
             foreach ($catData['products'] as $pName) {
-                $isModeling = $catData['name'] === 'Transport Modeling';
-                $description = $isModeling 
+                $isModelling = $catData['name'] === 'Transport Modelling';
+                $description = $isModelling 
                     ? "Industry-standard software for comprehensive transport planning, traffic analysis, and pedestrian simulation."
                     : "Powerful analytical tool for the economic evaluation, appraisal, and management of highway infrastructure projects.";
                 
-                $details = $isModeling
-                    ? "<p>{$pName} is a world-leading software solution for transportation professionals. It provides advanced tools for modeling multi-modal transport networks, simulating traffic flow at microscopic or macroscopic levels, and analyzing urban mobility patterns with precision.</p><ul><li>Strategic transport planning and forecasting</li><li>Traffic impact assessments</li><li>Public transport network optimization</li></ul>"
+                $details = $isModelling
+                    ? "<p>{$pName} is a world-leading software solution for transportation professionals. It provides advanced tools for Modelling multi-modal transport networks, simulating traffic flow at microscopic or macroscopic levels, and analyzing urban mobility patterns with precision.</p><ul><li>Strategic transport planning and forecasting</li><li>Traffic impact assessments</li><li>Public transport network optimization</li></ul>"
                     : "<p>{$pName} is a specialized tool designed for robust economic analysis and appraisal of transport investments. It enables engineers and economists to evaluate project feasibility, prioritize maintenance strategies, and calculate user benefits for complex highway developments.</p><ul><li>Life-cycle cost analysis</li><li>Cost-benefit appraisal (BCR/NPV)</li><li>Investment prioritization and budgeting</li></ul>";
 
                 \App\Models\SoftwareProduct::create([

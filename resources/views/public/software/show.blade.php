@@ -85,7 +85,7 @@
 
           <div class="card border-0 shadow-sm rounded-4 p-4 bg-light border-start border-4 border-brand-secondary mt-4">
             <h6 class="fw-bold text-brand-primary mb-2">Implementation Expert</h6>
-            <p class="text-muted x-small mb-0">Our engineering team provides full implementation and modeling audits to ensure your software is yielding high-precision results for your transport projects.</p>
+            <p class="text-muted x-small mb-0">Our engineering team provides full implementation and Modelling audits to ensure your software is yielding high-precision results for your transport projects.</p>
           </div>
         </div>
       </div>
@@ -96,7 +96,7 @@
   <section class="py-5 bg-brand-primary text-white text-center">
     <div class="container">
       <h2 class="mb-3 text-uppercase fw-bold">Need Specialized Software?</h2>
-      <p class="lead mb-4 text-white-50">Discovery how our modeling solutions can transform your project's efficiency.</p>
+      <p class="lead mb-4 text-white-50">Discovery how our Modelling solutions can transform your project's efficiency.</p>
       <a href="{{ route('contact') }}" class="btn btn-secondary btn-lg px-5 rounded-pill fw-bold">EXPLORE MORE SOLUTIONS</a>
     </div>
   </section>

@@ -55,7 +55,7 @@ class ServicesSeeder extends Seeder
                 'Cost-benefit analysis and financial appraisal for projects'
             ],
             'Transport Planning, Modelling and TIA' => [
-                'Intersection analysis, corridor studies, transportation modelling using (VISSIM, VISUM, SUMO, SIDRA)',
+                'Intersection analysis, corridor studies, transportation Modelling using (VISSIM, VISUM, SUMO, SIDRA)',
                 'Traffic Demand forecasting, strategic transport planning',
                 'Traffic Impact Assessment (TIA)'
             ],

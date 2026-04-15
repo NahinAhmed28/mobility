@@ -29,7 +29,7 @@
           <a class="nav-link fw-semibold text-uppercase small {{ Route::is('projects*') ? 'active' : '' }}" href="{{ route('projects') }}">Projects</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link fw-semibold text-uppercase small {{ Route::is('software*') ? 'active' : '' }}" href="{{ route('software') }}">Software Sells</a>
+          <a class="nav-link fw-semibold text-uppercase small {{ Route::is('software*') ? 'active' : '' }}" href="{{ route('software') }}">Software</a>
         </li>
         <li class="nav-item">
           <a class="nav-link fw-semibold text-uppercase small" href="{{ route('contact') }}">Contact Us</a>
