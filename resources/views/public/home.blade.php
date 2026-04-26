@@ -102,7 +102,7 @@
       </div>
       <div class="row g-4">
           @forelse($recentProjects as $project)
-            <div class="col-lg-4 col-md-6">
+            <div class="col-md-4">
               <div class="card h-100 border-0 shadow-sm overflow-hidden bg-brand-primary text-white hover-shadow">
                 <div class="bg-secondary bg-opacity-10 py-5 text-center">
                     <i class="bi bi-geometry text-white opacity-25" style="font-size: 4rem;"></i>

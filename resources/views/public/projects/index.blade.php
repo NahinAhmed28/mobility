@@ -19,10 +19,10 @@
             </h2>
             <div class="row g-4">
               @forelse($cat->projects as $p)
-                <div class="col-lg-6">
+                <div class="col-md-4">
                   <div class="card h-100 border-0 shadow-sm hover-shadow">
-                    <div class="card-body p-4 d-flex gap-4">
-                      <div class="d-none d-sm-flex align-items-center justify-content-center bg-light rounded text-brand-primary" style="width: 80px; height: 80px; min-width: 80px">
+                    <div class="card-body p-4 d-flex flex-column flex-xl-row gap-3 gap-xl-4 text-center text-xl-start">
+                      <div class="d-none d-sm-flex align-items-center justify-content-center bg-light rounded text-brand-primary mx-auto mx-xl-0" style="width: 80px; height: 80px; min-width: 80px">
                         <i class="bi bi-building display-6"></i>
                       </div>
                       <div>
