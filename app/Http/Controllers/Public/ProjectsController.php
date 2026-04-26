@@ -43,4 +43,19 @@ class ProjectsController extends Controller
         $company = Cache::remember('company_profile', 3600, fn() => CompanyProfile::first());
         return view('public.projects.show', compact('company','project'));
     }
+
+    public function recentProjects()
+    {
+        $company = Cache::remember('company_profile', 3600, fn() => CompanyProfile::first());
+
+        $projects = Cache::remember('public_recent_projects', 3600, function() {
+            return Project::with(['serviceCategory', 'images'])
+                ->where('is_active', true)
+                ->whereNotNull('display_order')
+                ->orderBy('display_order', 'asc')
+                ->get();
+        });
+
+        return view('public.projects.recent', compact('company', 'projects'));
+    }
 }

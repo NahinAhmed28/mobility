@@ -99,7 +99,7 @@ body {
     border: 10px solid rgba(249, 176, 0, 0.2);
     border-radius: 50%;
     position: relative;
-    background-color: white !important;
+    background-color: transparent !important;
 }
 
 .btn-secondary:hover {

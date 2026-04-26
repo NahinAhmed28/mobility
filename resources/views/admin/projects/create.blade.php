@@ -59,6 +59,13 @@
                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                     </div>
 
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700">Display Order</label>
+                        <input type="number" name="display_order" value="{{ old('display_order') }}" min="1"
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="e.g. 1, 2, 3...">
+                        <p class="mt-1 text-xs text-gray-500">Used for sorting on the Recent Projects page. If the number is already taken, others will shift automatically.</p>
+                    </div>
+
                     <div class="sm:col-span-2">
                         <label class="block text-sm font-bold text-gray-700">Description</label>
                         <textarea name="description" rows="6" 

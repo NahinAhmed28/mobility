@@ -30,6 +30,9 @@
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="min-width: 150px;">
                                 Details
                             </th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider" style="min-width: 100px;">
+                                Order
+                            </th>
                             <th scope="col" class="relative px-6 py-3" style="min-width: 120px;">
                                 <span class="sr-only">Actions</span>
                             </th>
@@ -61,6 +64,15 @@
                                     <span><i class="bi bi-calendar-event mr-1"></i> {{ $project->year ?? '-' }}</span>
                                 </div>
                             </td>
+                            <td class="px-6 py-4 text-center text-sm">
+                                @if($project->display_order)
+                                    <span class="px-2 py-1 inline-flex text-xs leading-5 font-bold rounded-full bg-green-100 text-green-800">
+                                        {{ $project->display_order }}
+                                    </span>
+                                @else
+                                    <span class="text-gray-400">—</span>
+                                @endif
+                            </td>
                             <td class="px-6 py-4 text-right text-sm font-medium">
                                 <div class="flex items-center justify-end space-x-3">
                                     <a href="{{ route('admin.projects.edit', $project) }}" class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 px-3 py-2 rounded-md text-sm font-medium transition-colors">
@@ -78,7 +90,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="4" class="px-6 py-12 text-center text-gray-500 italic">
+                            <td colspan="5" class="px-6 py-12 text-center text-gray-500 italic">
                                 No projects found matching your criteria.
                             </td>
                         </tr>

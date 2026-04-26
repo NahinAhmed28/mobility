@@ -15,6 +15,7 @@
         <ul class="list-unstyled d-grid gap-2 small">
           <li><a href="{{ route('services') }}" class="text-white-50 text-decoration-none">Services</a></li>
           <li><a href="{{ route('projects') }}" class="text-white-50 text-decoration-none">Projects</a></li>
+          <li><a href="{{ route('recent-projects') }}" class="text-white-50 text-decoration-none">Recent Projects</a></li>
           <li><a href="{{ route('about') }}" class="text-white-50 text-decoration-none">About Us</a></li>
           <li><a href="{{ route('contact') }}" class="text-white-50 text-decoration-none">Contact</a></li>
         </ul>

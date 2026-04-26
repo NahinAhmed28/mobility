@@ -11,6 +11,7 @@ use App\Http\Controllers\Public\ContactController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/services', [ServicesController::class, 'index'])->name('services');
 Route::get('/projects', [ProjectsController::class, 'index'])->name('projects');
+Route::get('/recent-projects', [ProjectsController::class, 'recentProjects'])->name('recent-projects');
 Route::get('/projects/{project:slug}', [ProjectsController::class, 'show'])->name('projects.show');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');

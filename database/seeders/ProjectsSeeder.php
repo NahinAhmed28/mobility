@@ -8,6 +8,7 @@ use App\Models\ProjectImage;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ProjectsSeeder extends Seeder
 {
@@ -39,7 +40,7 @@ class ProjectsSeeder extends Seeder
             ],
             'Rail Projects' => [
                 ['title' => 'Railway Connectivity Improvement Preparatory Facility (RCIPF)', 'location' => 'Bangladesh'],
-                ['title' => 'Dhaka–Chittagong–Cox’s Bazar Rail Project Preparatory Facility', 'location' => 'Bangladesh'],
+                ['title' => 'Dhaka-Chittagong-Cox\'s Bazar Rail Project Preparatory Facility', 'location' => 'Bangladesh'],
                 ['title' => 'Detailed Design and Tender Assistance for MRT Line–1', 'location' => 'Dhaka, Bangladesh'],
             ],
             'Bridge & Infrastructure Projects' => [
@@ -49,26 +50,45 @@ class ProjectsSeeder extends Seeder
             ],
         ];
 
+        // Collect all projects first, then assign shuffled display_order values
+        $allProjects = [];
         foreach ($projectsData as $catName => $projects) {
+            foreach ($projects as $i => $p) {
+                $allProjects[] = [
+                    'catName' => $catName,
+                    'project' => $p,
+                    'sortOrder' => $i,
+                ];
+            }
+        }
+
+        // Generate unique random display_order values (1..N shuffled)
+        $totalProjects = count($allProjects);
+        $displayOrders = range(1, $totalProjects);
+        shuffle($displayOrders);
+
+        foreach ($allProjects as $index => $entry) {
+            $catName = $entry['catName'];
+            $p = $entry['project'];
+
             // Find or create the service category
             $cat = ServiceCategory::firstOrCreate(
                 ['name' => $catName],
-                ['slug' => \Illuminate\Support\Str::slug($catName), 'sort_order' => 50]
+                ['slug' => Str::slug($catName), 'sort_order' => 50]
             );
 
-            foreach ($projects as $i => $p) {
-                Project::create([
-                    'service_category_id' => $cat->id,
-                    'title' => $p['title'],
-                    'slug' => \Illuminate\Support\Str::slug($p['title']) . '-' . rand(100, 999),
-                    'location' => $p['location'] ?? null,
-                    'client' => 'Confidential Client',
-                    'year' => '2023',
-                    'description' => 'Detailed consultancy and advisory services for ' . $p['title'],
-                    'sort_order' => $i,
-                    'is_featured' => ($i < 2),
-                ]);
-            }
+            Project::create([
+                'service_category_id' => $cat->id,
+                'title' => $p['title'],
+                'slug' => Str::slug($p['title']) . '-' . rand(100, 999),
+                'location' => $p['location'] ?? null,
+                'client' => 'Confidential Client',
+                'year' => '2023',
+                'description' => 'Detailed consultancy and advisory services for ' . $p['title'],
+                'sort_order' => $entry['sortOrder'],
+                'display_order' => $displayOrders[$index],
+                'is_featured' => ($entry['sortOrder'] < 2),
+            ]);
         }
     }
 }

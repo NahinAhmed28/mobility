@@ -9,6 +9,8 @@ use App\Models\ProjectImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
@@ -33,12 +35,21 @@ class ProjectController extends Controller
             'client' => 'nullable|string',
             'year' => 'nullable|string',
             'description' => 'nullable|string',
+            'display_order' => 'nullable|integer|min:1',
             'is_featured' => 'boolean',
         ]);
 
         $data['slug'] = Str::slug($data['title']);
+
+        // Handle display_order conflict resolution
+        if (!empty($data['display_order'])) {
+            $this->resolveDisplayOrderConflict($data['display_order']);
+        }
+
         $project = Project::create($data);
-        \Illuminate\Support\Facades\Cache::forget('public_project_categories');
+        Cache::forget('public_project_categories');
+        Cache::forget('public_service_projects');
+        Cache::forget('public_recent_projects');
 
         return redirect()->route('admin.projects.edit', $project)->with('success', 'Project created. You can now add images.');
     }
@@ -59,12 +70,22 @@ class ProjectController extends Controller
             'client' => 'nullable|string',
             'year' => 'nullable|string',
             'description' => 'nullable|string',
+            'display_order' => 'nullable|integer|min:1',
             'is_featured' => 'boolean',
         ]);
 
         $data['slug'] = Str::slug($data['title']);
+
+        // Handle display_order conflict resolution (exclude current project)
+        if (!empty($data['display_order'])) {
+            $this->resolveDisplayOrderConflict($data['display_order'], $project->id);
+        } else {
+            $data['display_order'] = null;
+        }
+
         $project->update($data);
-        \Illuminate\Support\Facades\Cache::forget('public_service_projects');
+        Cache::forget('public_service_projects');
+        Cache::forget('public_recent_projects');
 
         return redirect()->route('admin.projects.index')->with('success', 'Project updated successfully');
     }
@@ -72,7 +93,8 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $project->delete();
-        \Illuminate\Support\Facades\Cache::forget('public_service_projects');
+        Cache::forget('public_service_projects');
+        Cache::forget('public_recent_projects');
 
         return redirect()->route('admin.projects.index')->with('success', 'Project deleted successfully');
     }
@@ -88,7 +110,8 @@ class ProjectController extends Controller
             $project->images()->create([
                 'image_path' => $path,
             ]);
-            \Illuminate\Support\Facades\Cache::forget('public_project_categories');
+            Cache::forget('public_project_categories');
+            Cache::forget('public_recent_projects');
         }
 
         return redirect()->back()->with('success', 'Image uploaded successfully');
@@ -97,8 +120,43 @@ class ProjectController extends Controller
     public function destroyImage(ProjectImage $image)
     {
         $image->delete();
-        \Illuminate\Support\Facades\Cache::forget('public_project_categories');
+        Cache::forget('public_project_categories');
+        Cache::forget('public_recent_projects');
 
         return redirect()->back()->with('success', 'Image removed successfully');
+    }
+
+    /**
+     * If the given display_order value is already taken by another project,
+     * shift all projects with display_order >= the given value down by 1
+     * (i.e. increment their display_order).
+     */
+    private function resolveDisplayOrderConflict(int $order, ?int $excludeProjectId = null): void
+    {
+        $query = Project::where('display_order', $order);
+        if ($excludeProjectId) {
+            $query->where('id', '!=', $excludeProjectId);
+        }
+
+        if ($query->exists()) {
+            // Increment display_order for all projects at or below the given position
+            // We process from the bottom up to avoid unique constraint violations
+            $conflicting = Project::whereNotNull('display_order')
+                ->where('display_order', '>=', $order);
+
+            if ($excludeProjectId) {
+                $conflicting->where('id', '!=', $excludeProjectId);
+            }
+
+            // Get them ordered descending so we shift from bottom up
+            $projects = $conflicting->orderBy('display_order', 'desc')->get();
+
+            foreach ($projects as $p) {
+                // Temporarily remove unique constraint issue by using DB raw
+                DB::table('projects')
+                    ->where('id', $p->id)
+                    ->update(['display_order' => $p->display_order + 1]);
+            }
+        }
     }
 }
