@@ -21,16 +21,16 @@ class HomeController extends Controller
         // Featured services
         $featuredServices = $services->flatMap->items->where('is_featured', true)->take(6);
 
-        // Featured projects
-        $featuredProjects = Cache::remember('public_featured_projects', 3600, function() {
+        // Recent projects
+        $recentProjects = Cache::remember('public_home_recent_projects', 3600, function() {
             return Project::with('serviceCategory', 'images')
                 ->where('is_active', true)
-                ->where('is_featured', true)
-                ->orderBy('sort_order')
+                ->whereNotNull('display_order')
+                ->orderBy('display_order', 'asc')
                 ->take(6)
                 ->get();
         });
 
-        return view('public.home', compact('company','contact','services','featuredServices','featuredProjects'));
+        return view('public.home', compact('company','contact','services','featuredServices','recentProjects'));
     }
 }

@@ -97,18 +97,18 @@
   <section class="py-5">
     <div class="container py-lg-4">
       <div class="text-center mb-5">
-        <h2 class="fw-bold text-brand-primary text-uppercase mb-2">Project Experience</h2>
+        <h2 class="fw-bold text-brand-primary text-uppercase mb-2">Recent Projects</h2>
         <div class="section-divider"></div>
       </div>
       <div class="row g-4">
-          @forelse($featuredProjects as $project)
+          @forelse($recentProjects as $project)
             <div class="col-lg-4 col-md-6">
               <div class="card h-100 border-0 shadow-sm overflow-hidden bg-brand-primary text-white hover-shadow">
                 <div class="bg-secondary bg-opacity-10 py-5 text-center">
                     <i class="bi bi-geometry text-white opacity-25" style="font-size: 4rem;"></i>
                 </div>
                 <div class="card-body p-4">
-                  <div class="small text-brand-secondary mb-2 fw-bold">{{ $project->category->name ?? 'PROJECT' }}</div>
+                  <div class="small text-brand-secondary mb-2 fw-bold">{{ $project->serviceCategory->name ?? 'PROJECT' }}</div>
                   <h5 class="fw-bold mb-3">{{ $project->title }}</h5>
                   @if($project->location)
                     <div class="small text-white-50 mb-3">
@@ -128,7 +128,7 @@
           @endforelse
       </div>
       <div class="text-center mt-5">
-          <a href="{{ route('projects') }}" class="btn btn-outline-primary px-5 rounded-pill fw-bold">EXPLORE PROJECTS</a>
+          <a href="{{ route('recent-projects') }}" class="btn btn-outline-primary px-5 rounded-pill fw-bold">EXPLORE PROJECTS</a>
       </div>
     </div>
   </section>
